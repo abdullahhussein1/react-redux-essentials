@@ -7,7 +7,7 @@
     "@mswjs/data": "^0.16",
     "@reduxjs/toolkit": "^2.2",
     "classnames": "^2.2.6",
-    "date-fns": "^3",
+    "date-fns": "^3.6.0",
     "mock-socket": "^9.0.3",
     "msw": "^2",
     "react": "^18",
