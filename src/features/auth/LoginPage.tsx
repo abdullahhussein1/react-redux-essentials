@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
-import { selectAllUsers } from "@/features/users/usersSlice";
+import { fetchUsers, selectAllUsers } from "@/features/users/usersSlice";
 
 import { userLoggedIn } from "./authSlice";
 

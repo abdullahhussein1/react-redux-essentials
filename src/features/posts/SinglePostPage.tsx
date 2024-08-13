@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { useAppSelector } from "@/app/hooks";
 import { selectPostById } from "./postsSlice";
 import { PostAuthor } from "./postAuthor";
-import { TimeAgo } from "./TimeAgo";
+import { TimeAgo } from "../../components/TimeAgo";
 import { ReactionButtons } from "./ReactionButtons";
 import { selectCurrentUsername } from "../auth/authSlice";
 
