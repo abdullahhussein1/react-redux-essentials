@@ -16,11 +16,11 @@ export const LoginPage = () => {
   const users = useAppSelector(selectAllUsers);
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent<LoginPageFormElements>) => {
+  const handleSubmit = async (e: React.FormEvent<LoginPageFormElements>) => {
     e.preventDefault();
 
     const username = e.currentTarget.elements.username.value;
-    dispatch(login(username));
+    await dispatch(login(username));
     navigate("/posts");
   };
 
