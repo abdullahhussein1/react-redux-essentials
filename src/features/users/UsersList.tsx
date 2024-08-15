@@ -2,12 +2,15 @@ import { Link } from "react-router-dom";
 
 import { useAppSelector } from "@/app/hooks";
 
-import { selectAllUsers } from "./usersSlice";
+import { selectAllUsers, selectCurrentUser } from "./usersSlice";
 
 export const UsersList = () => {
   const users = useAppSelector(selectAllUsers);
+  const currentUser = useAppSelector(selectCurrentUser);
 
-  const renderedUsers = users.map((user) => (
+  const filteredUsers = users.filter((user) => user.id !== currentUser?.id);
+
+  const renderedUsers = filteredUsers.map((user) => (
     <li key={user.id}>
       <Link to={`/users/${user.id}`}>{user.name}</Link>
     </li>

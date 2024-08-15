@@ -6,7 +6,7 @@ import { useAppSelector, useAppDispatch } from "@/app/hooks";
 import { Spinner } from "@/components/Spinner";
 import { TimeAgo } from "@/components/TimeAgo";
 
-import { PostAuthor } from "./postAuthor";
+import { PostAuthor } from "./PostAuthor";
 import { ReactionButtons } from "./ReactionButtons";
 import {
   Post,
