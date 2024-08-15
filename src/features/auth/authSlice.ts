@@ -1,7 +1,7 @@
 import { client } from "@/api/client";
 import { RootState } from "@/app/store";
 import { createAppAsyncThunk } from "@/app/withTypes";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 export interface AuthState {
   username: string | null;
