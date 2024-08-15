@@ -12,6 +12,8 @@ import { EditPostForm } from "./features/posts/EditPostForm";
 import { LoginPage } from "./features/auth/LoginPage";
 import { useAppSelector } from "./app/hooks";
 import { selectCurrentUsername } from "./features/auth/authSlice";
+import { UsersList } from "./features/users/UsersList";
+import { UserPage } from "./features/users/UserPage";
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const username = useAppSelector(selectCurrentUsername);
@@ -29,15 +31,17 @@ function App() {
       <Navbar />
       <div className="App">
         <Routes>
-          <Route path="/" element={<LoginPage />}></Route>
+          <Route path="/" Component={LoginPage}></Route>
           <Route
             path="/*"
             element={
               <ProtectedRoute>
                 <Routes>
-                  <Route path="/posts" element={<PostsMainPage />} />
-                  <Route path="/posts/:postId" element={<SinglePostPage />} />
-                  <Route path="/editPost/:postId" element={<EditPostForm />} />
+                  <Route path="/posts" Component={PostsMainPage} />
+                  <Route path="/posts/:postId" Component={SinglePostPage} />
+                  <Route path="/editPost/:postId" Component={EditPostForm} />
+                  <Route path="/users" Component={UsersList} />
+                  <Route path="/users/:userId" Component={UserPage} />
                 </Routes>
               </ProtectedRoute>
             }
