@@ -3,8 +3,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 // Use the `Post` type we've already defined in `postsSlice`,
 // and then re-export it for ease of use
-import type { Post, NewPost } from "@/features/posts/postsSlice";
-export type { Post };
+import type { Post, NewPost, PostUpdate } from "@/features/posts/postsSlice";
+export type { Post, NewPost, PostUpdate };
 
 // Define our single API slice object
 export const apiSlice = createApi({
@@ -24,6 +24,7 @@ export const apiSlice = createApi({
     }),
     getPost: builder.query<Post, string>({
       query: (postId) => `/posts/${postId}`,
+      providesTags: ["Post"],
     }),
     addNewPost: builder.mutation<Post, NewPost>({
       query: (initialPost) => ({
@@ -33,9 +34,21 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: ["Post"],
     }),
+    editPost: builder.mutation<Post, PostUpdate>({
+      query: (post) => ({
+        url: `/posts/${post.id}`,
+        method: "PATCH",
+        body: post,
+      }),
+      invalidatesTags: ["Post"],
+    }),
   }),
 });
 
 // Export the auto-generated hook for the `getPosts` query endpoint
-export const { useGetPostsQuery, useGetPostQuery, useAddNewPostMutation } =
-  apiSlice;
+export const {
+  useGetPostsQuery,
+  useGetPostQuery,
+  useAddNewPostMutation,
+  useEditPostMutation,
+} = apiSlice;
