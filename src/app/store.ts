@@ -3,6 +3,8 @@ import postsReducer from "@/features/posts/postsSlice";
 import usersReducer from "@/features/users/usersSlice";
 import authReducer from "@/features/auth/authSlice";
 import notificationsReducer from "@/features/notifications/notificationsSlice";
+import { apiSlice } from "@/features/api/apiSlice";
+import { listenerMiddleware } from "./listenerMiddleware";
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +12,12 @@ export const store = configureStore({
     posts: postsReducer,
     users: usersReducer,
     notifications: notificationsReducer,
+    [apiSlice.reducerPath]: apiSlice.reducer,
+  },
+  middleware(getDefaultMiddleware) {
+    return getDefaultMiddleware()
+      .prepend(listenerMiddleware.middleware)
+      .concat(apiSlice.middleware);
   },
 });
 
