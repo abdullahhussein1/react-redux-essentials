@@ -236,7 +236,7 @@ export const handlers = [
     const since = parsedUrl.searchParams.get("since") ?? undefined;
     const numNotifications = getRandomInt(1, 5);
 
-    let notifications = generateRandomNotifications(
+    const notifications = generateRandomNotifications(
       since,
       currentUser,
       numNotifications,

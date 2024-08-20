@@ -4,7 +4,7 @@ import { selectCurrentUsername } from "../auth/authSlice";
 import { createAppAsyncThunk } from "@/app/withTypes";
 import { client } from "@/api/client";
 
-interface User {
+export interface User {
   id: string;
   name: string;
 }

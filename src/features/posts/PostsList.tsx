@@ -14,6 +14,7 @@ interface PostExcerptProps {
 }
 
 function PostExcerpt({ post }: PostExcerptProps) {
+  console.log(post);
   return (
     <article className="post-excerpt" key={post.id}>
       <h3>

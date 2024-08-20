@@ -2,11 +2,15 @@ import { Link } from "react-router-dom";
 
 import { useAppSelector } from "@/app/hooks";
 
-import { selectAllUsers, selectCurrentUser } from "./usersSlice";
+import { selectCurrentUser } from "./usersSlice";
+import { useGetUsersQuery } from "../api/apiSlice";
+import { Spinner } from "@/components/Spinner";
 
 export const UsersList = () => {
-  const users = useAppSelector(selectAllUsers);
+  const { data: users = [], isLoading } = useGetUsersQuery();
   const currentUser = useAppSelector(selectCurrentUser);
+
+  if (isLoading) return <Spinner text="Loading..." />;
 
   const filteredUsers = users.filter((user) => user.id !== currentUser?.id);
 

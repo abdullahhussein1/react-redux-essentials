@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 
-import { useAppDispatch, useAppSelector } from "@/app/hooks";
-import { selectAllUsers } from "@/features/users/usersSlice";
-import { login } from "./authSlice";
+import { useGetUsersQuery, useLoginUserMutation } from "../api/apiSlice";
+import { useAppDispatch } from "@/app/hooks";
+import { setUser } from "./authSlice";
 
 interface LoginPageFormFields extends HTMLFormControlsCollection {
   username: HTMLSelectElement;
@@ -12,16 +12,22 @@ interface LoginPageFormElements extends HTMLFormElement {
 }
 
 export const LoginPage = () => {
-  const dispatch = useAppDispatch();
-  const users = useAppSelector(selectAllUsers);
+  const { data: users = [] } = useGetUsersQuery();
+  const [login] = useLoginUserMutation();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const handleSubmit = async (e: React.FormEvent<LoginPageFormElements>) => {
     e.preventDefault();
 
     const username = e.currentTarget.elements.username.value;
-    await dispatch(login(username));
-    navigate("/posts");
+    try {
+      await login(username).unwrap();
+      dispatch(setUser(username));
+      navigate("/posts");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const usersOptions = users.map((user) => (

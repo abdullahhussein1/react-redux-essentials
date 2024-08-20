@@ -2,18 +2,26 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 
-import { selectCurrentUser } from "@/features/users/usersSlice";
-
 import { UserIcon } from "./UserIcon";
-import { logout } from "@/features/auth/authSlice";
 import {
   fetchNotifications,
   selectUnreadNotificationsCount,
 } from "@/features/notifications/notificationsSlice";
+import {
+  useGetUsersQuery,
+  useLogoutUserMutation,
+} from "@/features/api/apiSlice";
+import { setUser } from "@/features/auth/authSlice";
 
 export const Navbar = () => {
   const dispatch = useAppDispatch();
-  const user = useAppSelector(selectCurrentUser);
+  const [logout] = useLogoutUserMutation();
+  const currentUserId = useAppSelector((state) => state.auth.username);
+
+  const { data: users = [] } = useGetUsersQuery();
+
+  const user = users.find((user) => user.id === currentUserId);
+
   const navigate = useNavigate();
 
   const numUnreadNotifications = useAppSelector(selectUnreadNotificationsCount);
@@ -24,7 +32,8 @@ export const Navbar = () => {
 
   if (isLoggedIn) {
     const onLogoutClicked = () => {
-      dispatch(logout());
+      logout();
+      dispatch(setUser(null));
     };
 
     const fetchNewNotifications = () => {

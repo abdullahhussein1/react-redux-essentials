@@ -9,14 +9,9 @@ import { worker } from "./api/server";
 
 import "./primitiveui.css";
 import "./index.css";
-import { fetchUsers } from "./features/users/usersSlice";
 
-// Wrap app rendering so we can wait for the mock API to initialize
-async function start() {
-  // Start our mock API server
+async function main() {
   await worker.start({ onUnhandledRequest: "bypass" });
-
-  store.dispatch(fetchUsers());
 
   const root = createRoot(document.getElementById("root")!);
 
@@ -29,4 +24,4 @@ async function start() {
   );
 }
 
-start();
+main();

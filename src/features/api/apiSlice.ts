@@ -1,7 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import type { Post, NewPost, PostUpdate } from "@/features/posts/postsSlice";
-export type { Post, NewPost, PostUpdate };
+import type { User } from "../users/usersSlice";
+
+export type { Post, NewPost, PostUpdate, User };
 
 export const apiSlice = createApi({
   reducerPath: "api",
@@ -30,11 +32,28 @@ export const apiSlice = createApi({
     }),
     editPost: builder.mutation<Post, PostUpdate>({
       query: (post) => ({
-        url: `posts/${post.id}`,
+        url: `/posts/${post.id}`,
         method: "PATCH",
         body: post,
       }),
       invalidatesTags: (result, error, arg) => [{ type: "Post", id: arg.id }],
+    }),
+    getUsers: builder.query<User[], void>({
+      query: () => "/users",
+    }),
+    loginUser: builder.mutation<User, string>({
+      query: (username) => ({
+        url: "/login",
+        method: "POST",
+        body: { username },
+      }),
+    }),
+    logoutUser: builder.mutation<User, void>({
+      query: () => ({
+        url: "/logout",
+        method: "POST",
+        body: {},
+      }),
     }),
   }),
 });
@@ -42,6 +61,9 @@ export const apiSlice = createApi({
 export const {
   useGetPostsQuery,
   useGetPostQuery,
+  useGetUsersQuery,
+  useLoginUserMutation,
+  useLogoutUserMutation,
   useAddNewPostMutation,
   useEditPostMutation,
 } = apiSlice;

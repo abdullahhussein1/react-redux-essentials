@@ -1,6 +1,4 @@
-import { useAppSelector } from "@/app/hooks";
-
-import { selectUserById } from "@/features/users/usersSlice";
+import { useGetUsersQuery } from "../api/apiSlice";
 
 interface PostAuthorProps {
   userId: string;
@@ -8,7 +6,9 @@ interface PostAuthorProps {
 }
 
 export const PostAuthor = ({ userId, showPrefix = true }: PostAuthorProps) => {
-  const author = useAppSelector((state) => selectUserById(state, userId));
+  const { data: users = [] } = useGetUsersQuery();
+
+  const author = users.find((user) => user.id === userId);
 
   return (
     <span>

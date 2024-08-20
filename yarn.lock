@@ -2237,7 +2237,7 @@ react-router@6.26.0:
   dependencies:
     "@remix-run/router" "1.19.0"
 
-react-tiny-toast@^2.0.1:
+react-tiny-toast@^2.1.1:
   version "2.1.1"
   resolved "https://registry.npmjs.org/react-tiny-toast/-/react-tiny-toast-2.1.1.tgz"
   integrity sha512-h3DANzFveSKj7hZTmwKaQX/c2BNCiLwONt3OFT2NXJb9tTVhbuUziHA5t3eKUJqqgrs7x6iBaFxdbsHIc4mMmQ==
