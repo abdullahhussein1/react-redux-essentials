@@ -1,13 +1,29 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-import type { Post, NewPost, PostUpdate } from "@/features/posts/postsSlice";
+export interface Reactions {
+  thumbsUp: number;
+  tada: number;
+  heart: number;
+  rocket: number;
+  eyes: number;
+}
+
+export interface Post {
+  id: string;
+  title: string;
+  content: string;
+  user: string;
+  date: string;
+  reactions: Reactions;
+}
+
+export type PostUpdate = Pick<Post, "id" | "title" | "content">;
+export type NewPost = Pick<Post, "title" | "content" | "user">;
 
 export interface User {
   id: string;
   name: string;
 }
-
-export type { Post, NewPost, PostUpdate };
 
 export const apiSlice = createApi({
   reducerPath: "api",

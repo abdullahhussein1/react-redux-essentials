@@ -1,7 +1,24 @@
 import { createListenerMiddleware, addListener } from "@reduxjs/toolkit";
 import type { RootState, AppDispatch } from "./store";
+import { apiSlice } from "@/features/api/apiSlice";
 
-import { addPostsListeners } from "@/features/posts/postsSlice";
+export const addPostsListeners = (startAppListening: AppStartListening) => {
+  startAppListening({
+    matcher: apiSlice.endpoints.addNewPost.matchFulfilled,
+    effect: async (action, listenerApi) => {
+      const { toast } = await import("react-tiny-toast");
+
+      const toastId = toast.show("New post added!", {
+        variant: "success",
+        position: "bottom-right",
+        pause: true,
+      });
+
+      await listenerApi.delay(5000);
+      toast.remove(toastId);
+    },
+  });
+};
 
 export const listenerMiddleware = createListenerMiddleware();
 
