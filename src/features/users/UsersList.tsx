@@ -1,14 +1,13 @@
 import { Link } from "react-router-dom";
-
 import { useAppSelector } from "@/app/hooks";
-
-import { selectCurrentUser } from "./usersSlice";
 import { useGetUsersQuery } from "../api/apiSlice";
 import { Spinner } from "@/components/Spinner";
 
 export const UsersList = () => {
   const { data: users = [], isLoading } = useGetUsersQuery();
-  const currentUser = useAppSelector(selectCurrentUser);
+  const currentUserId = useAppSelector((state) => state.auth.username);
+
+  const currentUser = users.find((user) => user.id === currentUserId);
 
   if (isLoading) return <Spinner text="Loading..." />;
 

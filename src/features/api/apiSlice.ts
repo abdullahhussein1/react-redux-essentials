@@ -1,9 +1,13 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import type { Post, NewPost, PostUpdate } from "@/features/posts/postsSlice";
-import type { User } from "../users/usersSlice";
 
-export type { Post, NewPost, PostUpdate, User };
+export interface User {
+  id: string;
+  name: string;
+}
+
+export type { Post, NewPost, PostUpdate };
 
 export const apiSlice = createApi({
   reducerPath: "api",

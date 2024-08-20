@@ -1,20 +1,16 @@
 import { Link, useParams } from "react-router-dom";
 
-import { useAppSelector } from "@/app/hooks";
-import { selectPostsByUser } from "@/features/posts/postsSlice";
-
-import { useGetUsersQuery } from "../api/apiSlice";
+import { useGetPostsQuery, useGetUsersQuery } from "../api/apiSlice";
 
 export const UserPage = () => {
   const { userId } = useParams();
 
   const { data: users = [] } = useGetUsersQuery();
+  const { data: posts = [] } = useGetPostsQuery();
 
   const user = users.find((user) => user.id === userId);
 
-  const postsForUser = useAppSelector((state) =>
-    selectPostsByUser(state, userId!)
-  );
+  const postsForUser = posts.filter((post) => post.user === user?.id);
 
   if (!user) {
     return (
